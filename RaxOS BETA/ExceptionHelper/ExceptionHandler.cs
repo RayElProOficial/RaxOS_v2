@@ -29,8 +29,7 @@ namespace RaxOS_BETA.ExceptionHelper
             public static void BSOD_GHandler(Exception ex)
             {
                 canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1280, 720, ColorDepth.ColorDepth32));
-                canvas.Clear(Color.BlanchedAlmond);
-                canvas.DrawString(":(");
+                canvas.Clear(Color.AliceBlue);
             }
         }
     }

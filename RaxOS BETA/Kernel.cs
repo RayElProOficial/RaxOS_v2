@@ -1,9 +1,11 @@
-﻿using Cosmos.System.Graphics;
+﻿using Cosmos.HAL;
+using Cosmos.System.Graphics;
 using RaxOS_BETA.Programs;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Sys = Cosmos.System;
 
 namespace RaxOS_BETA
@@ -376,5 +378,59 @@ namespace RaxOS_BETA
         {
             Console.WriteLine("In develop.");
         }
+        string GetCheckVM()
+        {
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x80EE)
+                {
+                    return "VirtualBox";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x15ad)
+                {
+                    return "VMware";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x1af4)
+                {
+                    return "QEMU";
+                }
+            }
+            return "NotVM";
+        }
+        /*public static void* TEST(string A)
+        {
+            return TEST2;
+        }
+        void* TEST2()
+        {
+
+        }*//*
+        static Task<string> MyTask()
+        {
+            return ReturnTask();
+        }
+
+        static Task<string> ReturnTask(string A = "aaaaaaa")
+        {
+            if (A == "AeIoU")
+            {
+                return MyTask();
+            }
+            return MyTask();
+        }
+        static Task ReturnTask2()
+        {
+        }
+        static void ReturnTask3()
+        {
+
+        }*/
+
     }
 }
