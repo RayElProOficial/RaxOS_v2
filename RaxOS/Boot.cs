@@ -23,8 +23,14 @@ namespace RaxOS
             canvas.Clear(Color.Black);
             canvas.DrawImage(bootlogo, 660, 240);
             canvas.Display();
-            //canvas.Disable();
+            DelayCode(6000);
             MainDesktop.StartDesk();
+        }
+        static void DelayCode(int milliseconds)
+        {
+            Cosmos.HAL.PIT pit = new Cosmos.HAL.PIT();
+            pit.Wait((uint)milliseconds);
+            pit = new Cosmos.HAL.PIT();
         }
     }
 }
