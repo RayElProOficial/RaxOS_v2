@@ -36,7 +36,7 @@ namespace RaxOS
         static Canvas canvas;
         public static void StartDesk()
         {
-            throw new NotImplementedException("Error starting desktop, so: Not implemented.", new ApplicationException());
+            //throw new NotImplementedException("Error starting desktop, so: Not implemented.", new ApplicationException());
             //ERROR: Can't start desktop with error code 'Haiting Now'
             //TODO: Make desktop
             try
