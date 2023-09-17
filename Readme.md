@@ -11,7 +11,7 @@ Yes! You can put RaxOS in a Real PC, But the ARM PCs can't have RaxOS, (For comp
 Yes, RaxOS is secure, because RaxOS is open-source, and you can view the code to view all data in RaxOS, so you can stay safe using RaxOS (at moment)
 
 ### Where can i download RaxOS?
-If you want to put RaxOS in a real PC or in a Virtual Machine, you can download the ISO, to download the RaxOS Alpha 0.0.2, Alpha 0.0.1 or Prealpha 0.0.0.0.8-pre6 ISOs, go [here](https://github.com/RayElProOficial/RaxOS/releases)
+If you want to put RaxOS in a real PC or in a Virtual Machine, you can download the ISO, to download the RaxOS Alpha 0.0.2, Alpha 0.0.1 or Prealpha 0.0.0.0.8-pre6 ISOs, go [here](https://github.com/RayElProOficial/RaxOS/releases) and if you want to download RaxOS_v2, go [here](https://github.com/RayElProOficial/RaxOS_v2/releases)
 
 ### How can i contribute to RaxOS?
 If you want to contribute to RaxOS, you need to know about C# and you need to know how to create OS in COSMOS (C# Open Source Managed Operating System) Dev kit, user kit have a little few things and cant create RaxOS in userkit, you need to have Devkit installed, clone repo with Git or Github for Desktop, Visual Studio 2022 Community or Professional, or Enterprise, when you install COSMOS Dev Kit, you need to open RaxOS.sln and change code, later, save, open Github, "push" files and i will accept that "push", if i decline the code, is because have unsafe code or is not recommended for RaxOS
