@@ -1,4 +1,5 @@
 ﻿using Cosmos.System.Graphics;
+using Cosmos.System.Graphics.Fonts;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,6 +19,7 @@ namespace RaxOS_BETA.ExceptionHelper
         public static void BSoD_Handler(Exception ex)
         {
             Console.Clear();
+            canvas.Clear(Color.DarkBlue);
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(":( Your PC has a problem and it needs to restart.");
@@ -28,9 +30,12 @@ namespace RaxOS_BETA.ExceptionHelper
             public GraphicalHandler() { }
             public static void BSOD_GHandler(Exception ex)
             {
+                byte[] buffer = new byte[1024];
                 canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1280, 720, ColorDepth.ColorDepth32));
-                canvas.Clear(Color.BlanchedAlmond);
-                canvas.DrawString(":(");
+                canvas.Clear(Color.AliceBlue);
+                PCScreenFont pcf;
+                List<UnicodeMapping> mappings = new List<UnicodeMapping>();
+                pcf = new PCScreenFont(12, 8, buffer, mappings);
             }
         }
     }
