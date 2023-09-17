@@ -1,14 +1,13 @@
-﻿using Cosmos.Core;
-using Cosmos.System.FileSystem;
-using Cosmos.System.ScanMaps;
+﻿using Cosmos.HAL;
+using Cosmos.System.Graphics;
 using RaxOS_BETA.Programs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Dynamic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using K = Cosmos.System.KeyboardManager;
+using System.Text;
+using System.Threading.Tasks;
 using Sys = Cosmos.System;
 
 namespace RaxOS_BETA
@@ -17,63 +16,70 @@ namespace RaxOS_BETA
     {
         public enum Pth
         {
-            ProgramFolder,
-            SystemFolder,
-            RaxFolder,
-            UserDir
-        }
-        public static Dictionary<Pth, string> Paths = new Dictionary<Pth, string>()
-        {
-            { Pth.RaxFolder, "0:\\RaxOS" },
-            { Pth.ProgramFolder, "0:\\Programs"},
-            { Pth.SystemFolder, "0:\\RaxOS\\SYSTEM"},
-            { Pth.UserDir, "0:\\USERS" }
-        };
+            Sys.FileSystem.CosmosVFS fs = new Sys.FileSystem.CosmosVFS();
+            Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 
-        /// <summary>
-        /// Apps
-        /// </summary>
-        public static Dictionary<dynamic, dynamic> Apps = new Dictionary<dynamic, dynamic>
-        {
-            { "cli.scif", "Simple content informaion from files (scif)" },
-            { "scifPath", "0:\\Programs\\System\\raxos.scif" },
-            { "core.notepad", "RaxOS Notepad Editor" },
-            { "RaxOS.Settings", "RaxOS Settings" },
-            { "RaxOS.RaxGET", "RaxOS Application Installer" },
-            { "Utils.RaxUPD", "RaxOS Updater" },
-            { 1, "cli.scif" },
-            { 2, "core.notepad" },
-            { 3, "RaxOS.Settings" },
-            { 4, "RaxOS.RaxGET" },
-            { 5, "Utils.RaxUPD" },
-            { "notePath", "0:\\Programs\\Features\\Notepad" },
-            { "settPath", "0:\\Programs\\System\\InmersiveControlPanel" },
-            { "rxgtPath", "0:\\RaxOS\\System\\progInstaller\\raxget-sys\\v1" },
-            { "rxpdPath", "0:\\RaxOS\\System\\Updater\\raxupd-sys\\v1" }
-        };
-        public static string LatestVersion { get; set; } = "0.0.7";
-        public static string PCName = "raxPC-0000";
-        string UserLogged = "Administrator";
-        string userlvl = "admin";
-        bool run = false;
-        string rev = "16767";
-        string lang = "en";
-        string boottime = "01/01/1970";
-        string currentvol = "0:\\";
-        string currentdir = "0:\\";
-        public static Color WhiteColor = Color.White;
-        public static Color BlackColor = Color.Black;
-        public static Color avgColPen = Color.PowderBlue;
-        public static Color Gray = Color.FromArgb(0xff, 0xdf, 0xdf, 0xdf);
-        public static Color DarkGrayLight = Color.FromArgb(0xff, 0xc0, 0xc0, 0xc0);
-        public static Color DarkGray = Color.FromArgb(0xff, 0x80, 0x80, 0x80);
-        public static Color DarkBlue = Color.FromArgb(0xff, 0x00, 0x00, 0x80);
-        public static Color Pink = Color.FromArgb(0xff, 0xe7, 0x98, 0xde);
-        CosmosVFS vfs = new CosmosVFS();
-        Dictionary<string, string> Environmentvariables = new Dictionary<string, string>();
-        protected override void BeforeRun()
-        {
-            exCode.Setup();
+            if (!File.Exists("0:\\SYSTEM\\System.cs"))
+            {
+                //Custom Installer (Now you see why
+
+                Console.WriteLine("Welcome to RAXOS Installer");
+                Directory.CreateDirectory("0:\\SYSTEM\\");
+                Console.WriteLine("Creating 0:\\SYSTEM...");
+                File.WriteAllText("0:\\SYSTEM\\System.cs", "");
+                Console.WriteLine("Creating 0:\\SYSTEM\\System.cs...");
+                File.WriteAllText("0:\\SYSTEM\\Kernel.dll", "");
+                Console.WriteLine("Creating 0:\\SYSTEM\\Kernel.dll...");
+                File.WriteAllText("0:\\SYSTEM\\sysinfo.inf", "" +
+                    "[SYSINFO]\n" +/*0*/
+                    "Installed = true\n" +/*1*/
+                    "Userspecified = true\n" +//2
+                    "Passwordspecified = true\n" +//3
+                    "RaxOS_Channel = Beta\n" +//4
+                    "RaxOS_Version = {\n" +
+                    "0.0.0.2\n" +
+                    "}");//5
+                Console.WriteLine("Creating 0:\\SYSTEM\\sysinfo.inf...");
+                Console.Write("Please enter username:");
+                string usr = Console.ReadLine();
+            Z:
+                Console.WriteLine("Please press enter and after enter password");
+                ConsoleKeyInfo info = Console.ReadKey();
+                if (info.Key == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Press Enter.");
+                    goto Z;
+                }
+
+                string pss = Console.ReadLine();
+                Console.Clear();
+                string[] usrpss = { usr, pss };
+                File.WriteAllLines("0:\\SYSTEM\\users.db", usrpss);
+                Console.WriteLine("Creating users.db...");
+                Directory.CreateDirectory($"0:\\Users\\{usr}");
+                Directory.Delete("0:\\Dir Testing\\", true);
+                Console.WriteLine("Deleting cache...");
+                Directory.Delete("0:\\TEST\\", true);
+                Console.WriteLine("Deleting Setup Data...");
+                File.Delete("0:\\Kudzu.txt");
+                Console.WriteLine("Deleting logs...");
+                File.Delete("0:\\Root.txt");
+                Console.WriteLine("Deleting raxos_setup");
+                fs.CreateDirectory($"0:\\{usr}\\Documents\\");
+                Console.WriteLine("Creating 0:\\SYSTEM...");
+                Console.WriteLine("Press any key to reboot");
+                Console.ReadKey();
+                Sys.Power.Reboot();
+                // There is no SYSTEM directory yet, so we just shut the computer down there
+            }
+            else
+            {
+
+            }
             Console.WriteLine("Loading Filesystem...");
             Console.Clear();
             string loading_text = "Booting";
@@ -527,6 +533,59 @@ namespace RaxOS_BETA
                     Sys.Power.Reboot();
                     break;
             }
+        }
+        public static void Net()
+        {
+            Console.WriteLine("In develop.");
+        }
+        string GetCheckVM()
+        {
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x80EE)
+                {
+                    return "VirtualBox";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x15ad)
+                {
+                    return "VMware";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x1af4)
+                {
+                    return "QEMU";
+                }
+            }
+            return "NotVM";
+        }
+        /*public static void* TEST(string A)
+        {
+            return TEST2;
+        }
+        void* TEST2()
+        {
+
+        }*//*
+        static Task<string> MyTask()
+        {
+            return ReturnTask();
+        }
+
+        static Task<string> ReturnTask(string A = "aaaaaaa")
+        {
+            if (A == "AeIoU")
+            {
+                return MyTask();
+            }
+            return MyTask();
+        }
+        static Task ReturnTask2()
+        {
         }
     }
 }

@@ -33,9 +33,6 @@ namespace RaxOS_BETA.ExceptionHelper
                 byte[] buffer = new byte[1024];
                 canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1280, 720, ColorDepth.ColorDepth32));
                 canvas.Clear(Color.AliceBlue);
-                PCScreenFont pcf;
-                List<UnicodeMapping> mappings = new List<UnicodeMapping>();
-                pcf = new PCScreenFont(12, 8, buffer, mappings);
             }
         }
     }
