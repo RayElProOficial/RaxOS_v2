@@ -1,14 +1,11 @@
-﻿using Cosmos.Core;
-using Cosmos.System.FileSystem;
-using Cosmos.System.ScanMaps;
+﻿using Cosmos.System.Graphics;
 using RaxOS_BETA.Programs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Dynamic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using K = Cosmos.System.KeyboardManager;
+using System.Text;
 using Sys = Cosmos.System;
 
 namespace RaxOS_BETA
@@ -530,5 +527,59 @@ namespace RaxOS_BETA
                     break;
             }
         }
+        string GetCheckVM()
+        {
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x80EE)
+                {
+                    return "VirtualBox";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x15ad)
+                {
+                    return "VMware";
+                }
+            }
+            for (int I = 0; I < PCI.Count; I++)
+            {
+                if (PCI.Devices[I].VendorID == 0x1af4)
+                {
+                    return "QEMU";
+                }
+            }
+            return "NotVM";
+        }
+        /*public static void* TEST(string A)
+        {
+            return TEST2;
+        }
+        void* TEST2()
+        {
+
+        }*//*
+        static Task<string> MyTask()
+        {
+            return ReturnTask();
+        }
+
+        static Task<string> ReturnTask(string A = "aaaaaaa")
+        {
+            if (A == "AeIoU")
+            {
+                return MyTask();
+            }
+            return MyTask();
+        }
+        static Task ReturnTask2()
+        {
+        }
+        static void ReturnTask3()
+        {
+
+        }*/
+
     }
 }

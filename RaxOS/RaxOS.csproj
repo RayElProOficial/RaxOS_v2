@@ -20,6 +20,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Images\boot.bmp" />
+      <None Remove="test.bmp" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Images\boot.bmp" />
+      <EmbeddedResource Include="Images\test.bmp" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
